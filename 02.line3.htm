@@ -1,0 +1,31 @@
+<style>
+	canvas {
+		background: #ccc;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx = c.getContext("2d");
+		
+		console.log(ctx);
+		
+		const WIDTH = c.width;
+		const HEIGHT = c.height;
+		
+		ctx.beginPath();
+		
+		ctx.lineWidth = 20;
+		
+		// 线帽：注意会增长原有线的长度（与线宽有关）
+		
+		//ctx.lineCap = "round";
+		ctx.lineCap = "square";
+		
+		ctx.lineTo(100, 100);
+		ctx.lineTo(400, 100);
+		
+		ctx.stroke();
+	}
+</script>
+<canvas width="500" height="500"></canvas>

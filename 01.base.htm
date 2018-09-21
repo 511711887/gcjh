@@ -1,0 +1,40 @@
+<style>
+	canvas {
+		/*border: 1px solid gray;*/
+		background: #ccc;
+		/*
+			如果在此设置width和height，那么是按照canvas组件中定义的宽高按当前宽高比例缩放！
+		*/
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx = c.getContext("2d");
+		
+		const WIDTH = c.width;
+		const HEIGHT = c.height;
+		
+		console.log(ctx);
+		
+		// 为了区分每次绘制的业务，都要开启路径（这样颜色等画笔属性才不会干扰）
+		ctx.beginPath();
+		ctx.strokeStyle = "red";
+		ctx.lineWidth = 5;
+		// 线的起始
+		ctx.moveTo(0, 0);
+		// 线的终点
+		ctx.lineTo(WIDTH, HEIGHT);
+		// 绘制
+		ctx.stroke();
+		
+		ctx.beginPath();
+		ctx.strokeStyle = "blue";
+		ctx.lineWidth = 10;
+		ctx.moveTo(WIDTH, 0);
+		ctx.lineTo(0, HEIGHT);
+		// 绘制
+		ctx.stroke();
+	}
+</script>
+<canvas width="500" height="500"></canvas>

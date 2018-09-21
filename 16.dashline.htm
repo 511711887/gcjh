@@ -1,0 +1,32 @@
+<style>
+	canvas {
+		border: 1px solid gray;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx = c.getContext("2d");
+		
+		/*
+		console.log(ctx);
+		
+		ctx.setLineDash([10, 10, 20, 20]);
+		
+		ctx.lineDashOffset = 20;
+		
+		ctx.strokeRect(100.5, 100.5, 200, 200);
+		*/
+		
+		ctx.setLineDash([10, 10, 20, 20]);
+		
+		let offset = 0;
+		setInterval(function() {
+			ctx.clearRect(0, 0, 400, 400);
+			
+			ctx.lineDashOffset = offset += 5;
+			ctx.strokeRect(100.5, 100.5, 200, 200);
+		}, 200);
+	}
+</script>
+<canvas width="400" height="400"></canvas>

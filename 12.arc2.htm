@@ -1,0 +1,39 @@
+<style>
+	canvas {
+		border: 1px solid gray;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx= c.getContext("2d");
+		
+		let WIDTH = c.width;
+		let HEIGHT = c.height;
+		
+		let x = WIDTH / 2;
+		let y = HEIGHT / 2;
+		
+		let r = 100;
+		
+		let startAngle = Math.PI / 2;
+		let endAngle = Math.PI;
+		
+		ctx.lineWidth = 5;
+		
+		ctx.beginPath();
+		ctx.moveTo(x, y);
+		ctx.arc(x, y, r, startAngle, endAngle);
+		ctx.closePath();
+		
+		let gradient = ctx.createLinearGradient(WIDTH / 2, HEIGHT / 2, 0, HEIGHT * 0.75);
+		gradient.addColorStop(0, "red");
+		gradient.addColorStop(1, "yellow");
+		
+		ctx.fillStyle = gradient;
+		
+		//ctx.stroke();
+		ctx.fill();
+	}
+</script>
+<canvas width="500" height="500"></canvas>

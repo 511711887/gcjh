@@ -1,0 +1,24 @@
+<style>
+	canvas {
+		background: #ffffff;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx = c.getContext("2d");
+		
+		console.log(ctx);
+		
+		const WIDTH = c.width;
+		const HEIGHT = c.height;
+		
+		ctx.shadowColor = "#ffe000";
+		
+		ctx.shadowBlur = 30;
+		
+		ctx.fillStyle = "#ffe000";
+		ctx.fillRect(100, 100, 200, 200);
+	}
+</script>
+<canvas width="500" height="500"></canvas>

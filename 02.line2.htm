@@ -1,0 +1,32 @@
+<style>
+	canvas {
+		background: #ccc;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx = c.getContext("2d");
+		
+		console.log(ctx);
+		
+		const WIDTH = c.width;
+		const HEIGHT = c.height;
+		
+		ctx.beginPath();
+		
+		ctx.lineWidth = 20;
+		
+		// 线交的角型
+		
+		//ctx.lineJoin = "bevel";	// 斜切角
+		ctx.lineJoin = "round";
+		
+		ctx.lineTo(400, 100);
+		ctx.lineTo(100, 400);
+		ctx.lineTo(400, 400);
+		
+		ctx.stroke();
+	}
+</script>
+<canvas width="500" height="500"></canvas>

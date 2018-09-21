@@ -1,0 +1,69 @@
+<style>
+	canvas {
+		margin: auto;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+	}
+</style>
+<script>
+	let ctx, x, y, r;
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		ctx = c.getContext("2d");
+		
+		let WIDTH = c.width;
+		let HEIGHT = c.height;
+		
+		x = WIDTH / 2;
+		y = HEIGHT / 2;
+		
+		r = 150;
+		
+		let progress = 0;
+		
+		let start = 3 / 2 * Math.PI;
+		let end;
+		
+		ctx.lineWidth = 40;
+		
+		ctx.textAlign = "center";
+		ctx.textBaseline = "middle";
+		
+		drawBg();
+		
+		let handle = setInterval(function() {
+			ctx.clearRect(0, 0, WIDTH, HEIGHT);
+			
+			// 背景环
+			drawBg();
+			
+			// 进度环
+			progress += 10;
+			end = start + progress / 100 * 2 * Math.PI;
+			ctx.beginPath();
+			ctx.arc(x, y, r, start, end);
+			ctx.strokeStyle = "orange";
+			ctx.stroke();
+			
+			// 进度值
+			ctx.strokeStyle = "black";
+			ctx.font = "30px Times New Roman";
+			ctx.fillText(progress + "%", x, y);
+			
+			if (progress == 100)
+				clearInterval(handle);
+		}, 1000);
+		
+	}
+	
+	function drawBg() {
+		ctx.beginPath();
+		ctx.strokeStyle = "lightgray";
+		ctx.arc(x, y, r, 0, Math.PI * 2);
+		ctx.stroke();
+	}
+</script>
+<canvas width="400" height="400"></canvas>

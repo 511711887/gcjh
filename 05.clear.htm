@@ -1,0 +1,40 @@
+<style>
+	canvas {
+		background: #ccc;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx = c.getContext("2d");
+		
+		console.log(ctx);
+		
+		const WIDTH = c.width;
+		const HEIGHT = c.height;
+		
+		ctx.beginPath();
+		
+		ctx.lineWidth = 20;
+		
+		// 三角形
+
+		ctx.lineTo(50, 50);
+		ctx.lineTo(100, 400);
+		ctx.lineTo(400, 400);
+		
+		// 最后一根线要画回到起始点并连接，这里不需要自己手动绘制，只要通过closePath封闭路径即可！
+		
+		// 对于绘制封闭的图形
+		ctx.closePath();
+		
+		// 描边
+		//ctx.stroke();
+		// 填充
+		ctx.fill();
+		
+		// 从中心点位置清空出宽高100的矩形区域
+		ctx.clearRect(WIDTH / 2, HEIGHT / 2, 100, 100);
+	}
+</script>
+<canvas width="500" height="500"></canvas>

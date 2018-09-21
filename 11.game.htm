@@ -1,0 +1,87 @@
+<style>
+	canvas {
+		border: 1px solid gray;
+		background: lightgray;
+	}
+</style>
+<script>
+	let ctx;
+	let WIDTH, HEIGHT;
+	
+	let seconds = 60;
+	
+	let handle;
+	
+	let msg = "Welcome";
+	
+	let FONT_HEIGHT = 40;
+	let FONT_WIDTH;
+	
+	let x, y;
+	
+	let score = 0;
+	
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		c.onclick = function(event) {
+			let clickX = event.offsetX;
+			let clickY = event.offsetY;
+			
+			if (clickX >= x - FONT_WIDTH / 2 && clickX <= x + FONT_WIDTH / 2 && clickY >= y - FONT_HEIGHT / 2 && clickY <= y + FONT_HEIGHT / 2)
+				score++;
+		}
+		
+		ctx = c.getContext("2d");
+		
+		WIDTH = c.width;
+		HEIGHT = c.height;
+		
+		ctx.textAlign = "center";
+		ctx.textBaseline = "top";
+		
+		ctx.fillStyle = "red";
+		ctx.font = FONT_HEIGHT + "px Times New Roman";
+		ctx.fillText(seconds, WIDTH / 2, 0);
+		
+		ctx.textAlign = "center";
+		
+		FONT_WIDTH = ctx.measureText(msg).width;
+		
+		handle = setInterval(function() {
+			seconds --;
+			ctx.clearRect(0, 0, WIDTH, HEIGHT);
+			ctx.fillStyle = "red";
+			ctx.textBaseline = "top";
+			ctx.fillText(seconds, WIDTH / 2, 0);
+			
+			// 在随机的位置出现字符串Hello
+			ctx.fillStyle = "orange";
+			ctx.textBaseline = "middle";
+			// 这里的x和y是文字的中心点
+			x = Math.random() * WIDTH;
+			// 判断是否出左边
+			if (x - FONT_WIDTH / 2 < 0)
+				x = FONT_WIDTH / 2;
+			// 判断是否出右边
+			if (x + FONT_WIDTH / 2 > WIDTH)
+				x = WIDTH - FONT_WIDTH / 2;
+			y = Math.random() * HEIGHT;
+			// 判断是否出上边
+			if (y - FONT_HEIGHT / 2 < 0)
+				y = FONT_HEIGHT / 2;
+			// 判断是否出下边
+			if (y + FONT_HEIGHT / 2 > HEIGHT)
+				y = HEIGHT - FONT_HEIGHT / 2;
+			
+			ctx.fillText(msg, x, y);
+			
+			ctx.fillStyle = "green";
+			ctx.textBaseline = "bottom";
+			ctx.fillText(score, WIDTH / 2, HEIGHT);
+			
+			if (seconds == 0)
+				clearTimeout(handle);
+		}, 1000);
+	}
+</script>
+<canvas width="500" height="500"></canvas>

@@ -1,0 +1,143 @@
+<meta charset="utf-8" />
+<style>
+	canvas {
+		border: 1px solid lightgray;
+	}
+	#target {
+		position: absolute;
+		display: none;
+		border: 1px solid black;
+		font-size: 15px;
+		padding: 5px;
+	}
+</style>
+<script>
+	let ctx;
+	let WIDTH, HEIGHT;
+	let courses;
+	
+	// 圆心
+	let x, y;
+	
+	// 半径
+	let r = 200;
+	
+	let colors = ["#ffe000", "blue", "green", "orange", "pink", "gray"];
+	
+	let texts = [];
+	
+	// 文字高度
+	let TEXT_HEIGHT = 30;
+	
+	window.onload = function() {
+		let canvas = document.querySelector("canvas");
+		
+		// 给画布加鼠标移动事件
+		canvas.onmousemove = function(event) {
+			let targetIndex = getTargetIndex(event.offsetX, event.offsetY);
+			if (targetIndex == -1) {
+				// 没有指向任何有效的文字区域
+				document.querySelector("#target").style.display = "none";
+			} else {
+				with(document.querySelector("#target")) {
+					style.top = event.pageY + 5;
+					style.left = event.pageX + 5;
+					textContent = courses[targetIndex].value;
+					style.display = "block";
+				}
+			}
+		}
+		
+		ctx = canvas.getContext("2d");
+		
+		WIDTH = canvas.width;
+		HEIGHT = canvas.height;
+
+		x = WIDTH / 2;
+		y = HEIGHT / 2;
+		
+		ctx.textAlign = "center";
+		ctx.textBaseline = "middle";
+		
+		courses = document.querySelectorAll("input[name='courses']");
+	}
+	
+	// 根据画布上的鼠标坐标判断指向哪一个扇形中的文字区域
+	function getTargetIndex(offsetX, offsetY) {
+		let targetIndex = -1;
+		texts.forEach(({x, y}, index) => {
+			let textWidth = ctx.measureText(courses[index].getAttribute("item")).width;
+			if (
+				offsetX >= (x - textWidth / 2) &&
+				offsetX <= (x + textWidth / 2) &&
+				offsetY >= (y - TEXT_HEIGHT / 2) &&
+				offsetY <= (y + TEXT_HEIGHT / 2)
+			) {
+				targetIndex = index;
+			}
+		});
+		return targetIndex;
+	}
+	
+	// 获得每个项的百分比值
+	function getItemPercent(index) {
+		let value = courses[index].value;
+		let sum = 0;
+		courses.forEach(({value}) => {
+			sum += (+value);
+		});
+		return value / sum;
+	}
+	
+	function genPieChart() {
+		texts = [];
+		
+		// 清空画布
+		ctx.clearRect(0, 0, WIDTH, HEIGHT);
+		
+		// 起始弧度
+		let start = Math.PI * 3 / 2;
+		
+		let end;
+		
+		courses.forEach((course, index) => {
+			end = start + getItemPercent(index) * Math.PI * 2;
+			
+			ctx.beginPath();
+			ctx.moveTo(x, y);
+			ctx.arc(x, y, r, start, end);
+			ctx.fillStyle = colors[index];
+			ctx.closePath();
+			ctx.fill();
+			
+			// 在扇形居中位置绘制文字
+			let center = (start + end) / 2;
+			let centerX = x + r * Math.cos(center);
+			let centerY = y + r * Math.sin(center);
+			
+			let textX = (x + centerX) / 2;
+			let textY = (y + centerY) / 2;
+			
+			ctx.font = TEXT_HEIGHT + "px Times New Roman";
+			ctx.fillStyle = "white";
+			ctx.fillText(course.getAttribute("item"), textX, textY);
+			
+			// 将文字的中心坐标存储，后面要根据鼠标的坐标判断靠近哪一个文字区域（索引就是每个扇形）
+			texts.push({x: textX, y: textY});
+			
+			// 下一个扇形的起始弧度就是当前扇形的结束弧度
+			start = end;
+			
+		});
+		
+	}
+</script>
+Java: <input name="courses" item="Java" value="135" /><br />
+C++: <input name="courses" item="C++" value="55" /><br />
+Android: <input name="courses" item="Android" value="75" /><br />
+Web: <input name="courses" item="Web" value="200" /><br />
+PHP: <input name="courses" item="PHP" value="113" /><br />
+MySQL: <input name="courses" item="MySQL" value="177" /><br />
+<button onclick="genPieChart()">Pie Chart</button><br />
+<canvas width="500" height="500"></canvas>
+<div id="target">90</div>

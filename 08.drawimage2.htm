@@ -1,0 +1,31 @@
+<style>
+	canvas {
+		background: #ccc;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx = c.getContext("2d");
+		
+		const WIDTH = c.width;
+		const HEIGHT = c.height;
+		
+		let logo = new Image();
+		logo.onloadstart = function() {
+			console.log("onloadstart")
+		}
+		logo.onloadend = function() {
+			console.log("onloadend")
+		}
+		logo.onload = function() {
+			console.log("onload")
+			//ctx.drawImage(logo, 0, 0);
+			//ctx.drawImage(logo, 0, 0, logo.width, logo.height, 0, 0, logo.width * 0.5, logo.height * 0.5);
+			ctx.drawImage(logo, 0, 0, logo.width, 32, 0, 0, logo.width * 0.5, 32 * 0.5);
+			
+		}
+		logo.src = "logo.png";
+	}
+</script>
+<canvas width="500" height="500"></canvas>

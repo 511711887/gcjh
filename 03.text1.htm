@@ -1,0 +1,46 @@
+<style>
+	canvas {
+		background: #ccc;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx = c.getContext("2d");
+		
+		console.log(ctx);
+		
+		const WIDTH = c.width;
+		const HEIGHT = c.height;
+		
+		ctx.beginPath();
+		ctx.moveTo(0, HEIGHT / 2);
+		ctx.lineTo(WIDTH, HEIGHT / 2);		
+		ctx.stroke();
+		
+		ctx.beginPath();
+		ctx.moveTo(WIDTH / 2, 0);
+		ctx.lineTo(WIDTH / 2, HEIGHT);		
+		ctx.stroke();
+		
+		ctx.font = "italic bold 50px Times New Roman";
+		
+		// 对齐方式（以fillText时指定的文字坐标）
+		
+		// 水平
+		ctx.textAlign = "center";
+		
+		// 垂直
+		ctx.textBaseline = "middle";
+		
+		// 设置描边颜色
+		//ctx.strokeStyle = "blue";
+		//ctx.strokeText("Hello", WIDTH / 2, HEIGHT / 2);
+		
+		// 设置填充颜色
+		ctx.fillStyle = "blue";
+		// 默认以文字的左下基线为对齐点
+		ctx.fillText("yfe", WIDTH / 2, HEIGHT / 2);
+	}
+</script>
+<canvas width="500" height="500"></canvas>

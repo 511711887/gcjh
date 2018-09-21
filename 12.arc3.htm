@@ -1,0 +1,45 @@
+<style>
+	canvas {
+		margin: auto;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx= c.getContext("2d");
+		
+		let WIDTH = c.width;
+		let HEIGHT = c.height;
+		
+		let x = WIDTH / 2;
+		let y = HEIGHT / 2;
+		
+		let r = 150;
+		
+		let progress = 0;
+		
+		/*
+		// 直接指定起始和结束弧度
+		let start = 3 / 2 * Math.PI;
+		let end = Math.PI / 6;
+		*/
+
+		// 通过起始弧度加上弧的角度计算出结束弧度
+		// 起始弧度
+		let start = 3 / 2 * Math.PI;
+		// 画120度的弧
+		let angle = 120;
+		// 结束弧度
+		let end = start + angle * Math.PI / 180;
+		
+		ctx.arc(x, y, r, start, end);
+		
+		ctx.stroke();
+	}
+</script>
+<canvas width="400" height="400"></canvas>

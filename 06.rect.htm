@@ -1,0 +1,21 @@
+<style>
+	canvas {
+		background: #ccc;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx = c.getContext("2d");
+		
+		/*
+		ctx.rect(100.5, 100.5, 200, 200);
+		
+		ctx.stroke();		// rect + stroke = strokeRect
+		ctx.fill();			// rect + fill = fillRect
+		*/
+		
+		ctx.strokeRect(100.5, 100.5, 200, 200);
+	}
+</script>
+<canvas width="400" height="400"></canvas>

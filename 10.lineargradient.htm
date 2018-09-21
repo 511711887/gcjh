@@ -1,0 +1,43 @@
+<style>
+	canvas {
+		border: 1px solid gray;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx = c.getContext("2d");
+		
+		/*
+		//let gradient = ctx.createLinearGradient(0, 100, 500, 100);
+		//let gradient = ctx.createLinearGradient(500, 500, 0, 0);
+		let gradient = ctx.createLinearGradient(0, 0, 500, 500);
+		gradient.addColorStop(0, "blue");
+		gradient.addColorStop(0.5, "green");
+		gradient.addColorStop(1, "red");
+		*/
+		/*
+		let gradient = ctx.createLinearGradient(100, 100, 400, 400);
+		gradient.addColorStop(0, "blue");
+		gradient.addColorStop(0.5, "green");
+		gradient.addColorStop(1, "red");
+		
+		ctx.fillStyle = gradient;
+		
+		ctx.fillRect(0, 0, 500, 500);
+		*/
+		
+		let gradient1 = ctx.createLinearGradient(0, 0, 500, 0);
+		gradient1.addColorStop(0, "blue");
+		gradient1.addColorStop(1, "green");
+		ctx.fillStyle = gradient1;
+		ctx.fillRect(0, 0, 500, 250);
+		
+		let gradient2 = ctx.createLinearGradient(0, 250, 0, 500);
+		gradient2.addColorStop(0, "blue");
+		gradient2.addColorStop(1, "green");
+		ctx.fillStyle = gradient2;
+		ctx.fillRect(0, 250, 500, 500);
+	}
+</script>
+<canvas width="500" height="500"></canvas>

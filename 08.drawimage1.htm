@@ -1,0 +1,19 @@
+<style>
+	canvas {
+		background: #ccc;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx = c.getContext("2d");
+		
+		const WIDTH = c.width;
+		const HEIGHT = c.height;
+		
+		let logo = document.querySelector("img");
+		ctx.drawImage(logo, 0, 0);
+	}
+</script>
+<canvas width="500" height="500"></canvas>
+<img src="logo.png" width="0" height="0" />

@@ -1,0 +1,58 @@
+<style>
+	canvas {
+		border: 1px solid lightgray;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx = c.getContext("2d");
+		const WIDTH = c.width;
+		const HEIGHT = c.height;
+		
+		// 动画帧数
+		let frames = 8;
+		
+		// 动画帧播放数值（自增）
+		let i = 0;
+		
+		// 定义小人跑的y高（慢慢变小，从底部向顶部运动）
+		let y = 5;
+		
+		let run = new Image();
+		run.onload = function() {
+			// 图片的宽
+			let image_width = run.width;
+			// 图片的高
+			let image_height = run.height;
+			
+			console.log(image_width, image_height);
+			
+			setInterval(function() {
+				ctx.clearRect(0, 0, WIDTH, HEIGHT);
+				ctx.drawImage(
+					// 图片
+					run,
+					// 原图上的x坐标（图片总宽为1000，因为有8个帧，所以偏移是0, 125, 250, 375...）
+					image_width / frames * (i++%frames),
+					// 原图上的y坐标（左上点0）
+					0,
+					// 每个帧的宽度
+					image_width / frames,
+					// 每个帧的高度
+					image_height,
+					// 绘制在画布上的x坐标（居中）
+					(WIDTH - image_width / frames) / 2,
+					// 绘制在画布上的y坐标（从bottom跑向top）
+					HEIGHT - image_height - (y+=5),
+					// 按原图等比例绘制小人的宽和高
+					image_width / frames,
+					image_height
+				);				
+			}, 1000 / 16);
+		}
+		run.src = "run.png";
+	}
+
+</script>
+<canvas width="500" height="500"></canvas>

@@ -1,0 +1,45 @@
+<style>
+	canvas {
+		border: 1px solid gray;
+	}
+</style>
+<script>
+	window.onload = function() {
+		let c = document.querySelector("canvas");
+		let ctx= c.getContext("2d");
+		
+		let WIDTH = c.width;
+		let HEIGHT = c.height;
+		
+		let x = WIDTH / 2;
+		let y = HEIGHT / 2;
+		
+		let r = 100;
+		
+		//ctx.arc(x, y, r, 0, 2 * Math.PI);
+		//ctx.arc(x, y, r, 0, Math.PI / 2);
+		
+		let startAngle = Math.PI / 2;
+		let endAngle = Math.PI;
+		
+		ctx.arc(x, y, r, startAngle, endAngle);
+		
+		// 弧线上任意点的坐标(x, y)：
+		// x = 圆心x + 半径r * Math.cos(弧度)
+		// y = 圆心y + 半径r * Math.sin(弧度)
+		
+		ctx.stroke();
+		
+		// 绘制圆心到弧线两点
+		ctx.beginPath();
+		ctx.moveTo(x, y);
+		ctx.lineTo(x + r * Math.cos(startAngle), y + r * Math.sin(startAngle));
+		ctx.stroke();
+		
+		ctx.beginPath();
+		ctx.moveTo(x, y);
+		ctx.lineTo(x + r * Math.cos(endAngle), y + r * Math.sin(endAngle));
+		ctx.stroke();
+	}
+</script>
+<canvas width="500" height="500"></canvas>
