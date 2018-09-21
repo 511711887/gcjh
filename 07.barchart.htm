@@ -1,0 +1,121 @@
+<meta charset="utf-8" />
+<style>
+	canvas {
+		border: 1px solid lightgray;
+	}
+</style>
+<script>
+	let ctx;
+	let WIDTH, HEIGHT, PADDING, ARROW, LINE_HEIGHT, BAR_WIDTH, BAR_OFFSET;
+	let courses;
+	let logo, bg;
+	window.onload = function() {
+		let canvas = document.querySelector("canvas");
+		ctx = canvas.getContext("2d");
+		WIDTH = canvas.width;
+		HEIGHT = canvas.height;
+		PADDING = 50;
+		ARROW = 16;
+		LINE_HEIGHT = 30;
+		
+		BAR_WIDTH = 30;
+		BAR_OFFSET = 40;
+		
+		ctx.textAlign = "center";
+		ctx.textBaseline = "middle";
+		
+		courses = document.querySelectorAll("input[name='courses']");
+		
+		logo = new Image();
+		logo.src="logo.png";
+		
+		bg = new Image();
+		bg.src = "bg.gif";
+	}
+	function genBarChart() {
+		// 清空画布
+		ctx.clearRect(0, 0, WIDTH, HEIGHT);
+		
+		// 绘制背景
+		let pattern = ctx.createPattern(bg, "repeat");
+		ctx.fillStyle = pattern;
+		ctx.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		// 绘制坐标
+		ctx.beginPath();
+		ctx.moveTo(PADDING - 0.5, PADDING - 0.5);
+		ctx.lineTo(PADDING - 0.5, HEIGHT - PADDING - 0.5);
+		ctx.lineTo(WIDTH - PADDING - 0.5, HEIGHT - PADDING - 0.5);
+		ctx.stroke();
+		
+		// 绘制箭头
+		ctx.fillStyle = "black";
+		ctx.beginPath();
+		ctx.moveTo(PADDING - 0.5, PADDING - 0.5);
+		ctx.lineTo(PADDING - ARROW / 2.5 - 0.5, PADDING + ARROW - 0.5);
+		ctx.lineTo(PADDING + ARROW / 2.5 - 0.5, PADDING + ARROW - 0.5);
+		ctx.closePath();
+		ctx.fill();
+		
+		// 绘制等高线
+		let lines = Math.floor((HEIGHT - 2 * PADDING) / LINE_HEIGHT);
+		
+		for (let i=1; i<lines; i++) {
+			ctx.beginPath();
+			ctx.moveTo(PADDING - 0.5, HEIGHT - PADDING - i * LINE_HEIGHT - 0.5);
+			ctx.lineTo(WIDTH - PADDING - 0.5, HEIGHT - PADDING - i * LINE_HEIGHT - 0.5);
+			ctx.stroke();
+		}
+		
+		// 绘制Y轴坐标数值
+		ctx.font = "16px Times New Roman";
+		for (let i=0; i<lines; i++) {
+			ctx.fillText(i * LINE_HEIGHT, PADDING / 2, HEIGHT - PADDING - i * LINE_HEIGHT);
+		}
+		
+		// 设置柱型阴影
+		ctx.shadowColor = "#c3c3c3";
+		ctx.shadowOffsetX = 10;
+		ctx.shadowOffsetY = -10;
+		ctx.shadowBlur = 20;
+		
+		// 垂直线性
+		let gradient = ctx.createLinearGradient(0, 0, 0, HEIGHT);
+		gradient.addColorStop(0, "rgba(0, 255, 0, 1)");
+		gradient.addColorStop(1, "rgba(255, 0, 0, 1)");
+		
+		// 绘制柱型
+		ctx.fillStyle = gradient;
+		courses.forEach(({value}, index) => {
+			ctx.fillRect(PADDING + BAR_OFFSET + (BAR_WIDTH + BAR_OFFSET) * index - 0.5, HEIGHT - PADDING - value - 0.5, BAR_WIDTH, value - 0.5);
+		});
+		
+		// 取消阴影
+		ctx.shadowColor = "rgba(0, 0, 0, 0)";
+		
+		// 绘制柱型顶部数值
+		ctx.fillStyle = "blue";
+		ctx.font = "italic 12px Times New Roman";
+		courses.forEach(({value}, index) => {
+			ctx.fillText(value, PADDING + BAR_OFFSET + (BAR_WIDTH + BAR_OFFSET) * index + BAR_WIDTH / 2 - 0.5, HEIGHT - PADDING - value - 10 - 0.5);
+		});
+		
+		ctx.fillStyle = "green";
+		ctx.font = "bold 12px Times New Roman";
+		// 绘制X轴坐标项名
+		courses.forEach((course, index) => {
+			ctx.fillText(course.getAttribute("item"), PADDING + BAR_OFFSET + (BAR_WIDTH + BAR_OFFSET) * index + BAR_WIDTH / 2 - 0.5, HEIGHT - PADDING + 20);
+		});
+		
+		// 绘制logo
+		ctx.drawImage(logo, WIDTH - logo.width, 0);		
+	}
+</script>
+Java: <input name="courses" item="Java" value="135" /><br />
+C++: <input name="courses" item="C++" value="55" /><br />
+Android: <input name="courses" item="Android" value="75" /><br />
+Web: <input name="courses" item="Web" value="200" /><br />
+PHP: <input name="courses" item="PHP" value="113" /><br />
+MySQL: <input name="courses" item="MySQL" value="177" /><br />
+<button onclick="genBarChart()">Bar Chart</button><br />
+<canvas width="600" height="350"></canvas>
