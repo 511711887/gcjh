@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+/* canvas */
+.btn {
+	border: none;
+	color: white;
+	overflow: hidden;
+	margin: 1rem;
+	padding: 0;
+	text-transform: uppercase;
+	width: 150px;
+	height: 40px;
+}
+.btn-round {
+	border-radius: 10em;
+}
+.btn.color-3 {
+	background-color: #897d63;
+}
+.material-design {
+	position: relative;
+}
+.material-design canvas {
+	opacity: 0.25;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+
+
+#container{
+	background:#e2ddcf ;
+	width: 600px;
+	height: 670px;
+	margin: 0 auto;
+}
+#header{
+	margin: 10px auto;
+	width: 500px
+}
+#title{
+	font: bold 50px Times;
+	text-align: center;
+}
+#score{
+	display: flex;
+	justify-content: space-between;
+	height: 70px;
+	align-items: center;
+}
+#score>:last-child{
+	text-align: center;
+	/* width: 110px; */
+	background: #bbada0;
+	margin: 5px;
+	border-radius: 6px;
+	height: 40px;
+	padding: 0 10px;
+}
+#score>:last-child>span{
+	color: #555;
+}
+#score>:last-child>span>:last-child{
+	color: #fff;
+	font-size: 30px;
+	line-height: 40px
+}
+
+
+
+
+#body{
+	margin: 0 auto;
+	border: 1px solid #bbada0;
+	width: 500px;
+	height: 500px;
+	background:#bbada0;
+	border-radius: 20px;
+}
+#body .row{
+	margin-top: 20px;
+	display: flex;
+}
+#body .col{
+	margin-left: 20px;
+	width: 100px;
+	height: 100px;
+	border-radius: 20px;
+	background: #cdc1b5;
+	position: relative;
+}
+.number-cell{
+	border-radius:20px;
+	background-color:red;
+	font:bold 50px Arial;
+	text-align:center;
+	line-height:100px;
+	position: absolute;
+}
